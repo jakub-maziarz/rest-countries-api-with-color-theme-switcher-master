@@ -1,15 +1,19 @@
 <template>
-    <div class="dropdown shadow-blur">
+    <div class="dropdown shadow-blur" @click="dropdown = true">
         <div
             class="dropdown__selected d-flex justify-content-between h-100 align-items-center fs-14 text-font fw-semibold"
         >
             <span class="dropdown__value">Filter by Region</span>
             <font-awesome-icon
                 icon="fa-solid fa-chevron-down"
-                class="dark-gray"
+                class="icon-color"
             />
         </div>
-        <div class="dropdown__list w-100 shadow-blur py-2">
+        <div
+            class="dropdown__list w-100 shadow-blur py-2"
+            v-if="dropdown"
+            @mouseleave="dropdown = false"
+        >
             <div class="dropdown__item fs-14 text-font fw-semibold">Africa</div>
             <div class="dropdown__item fs-14 text-font fw-semibold">
                 America
@@ -22,6 +26,12 @@
         </div>
     </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+
+const dropdown = ref(false);
+</script>
 
 <style scoped>
 .dropdown {
@@ -44,6 +54,7 @@
     background-color: var(--elements-color);
     top: 100%;
     top: calc(100% + 10px);
+    z-index: 1;
 }
 
 .dropdown__item {

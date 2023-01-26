@@ -14,14 +14,13 @@
             v-if="dropdown"
             @mouseleave="dropdown = false"
         >
-            <div class="dropdown__item fs-14 text-font fw-semibold">Africa</div>
-            <div class="dropdown__item fs-14 text-font fw-semibold">
-                America
-            </div>
-            <div class="dropdown__item fs-14 text-font fw-semibold">Asia</div>
-            <div class="dropdown__item fs-14 text-font fw-semibold">Europe</div>
-            <div class="dropdown__item fs-14 text-font fw-semibold">
-                Oceania
+            <div
+                class="dropdown__item fs-14 text-font fw-semibold"
+                v-for="region in regions"
+                :key="region"
+                @click="$emit('filterByRegion', region)"
+            >
+                {{ region }}
             </div>
         </div>
     </div>
@@ -29,8 +28,10 @@
 
 <script setup>
 import { ref } from "vue";
+defineEmits(["filterByRegion"]);
 
 const dropdown = ref(false);
+const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
 </script>
 
 <style scoped>

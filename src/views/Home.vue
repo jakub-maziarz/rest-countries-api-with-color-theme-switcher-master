@@ -6,7 +6,9 @@
                     :modelValue="searchCountry"
                     @update:modelValue="(country) => (searchCountry = country)"
                 ></SearchInput>
-                <SelectDropdown></SelectDropdown>
+                <SelectDropdown
+                    @filter-by-region="(region) => (regionCountries = region)"
+                ></SelectDropdown>
             </div>
         </div>
         <div class="row gx-5 gy-5">
@@ -40,12 +42,20 @@ onMounted(async () => {
 });
 
 const searchCountry = ref("");
+const regionCountries = ref("");
+
 const countriesFiltered = computed(() => {
     let tempCountries = countries.value;
 
     if (searchCountry.value != "" && searchCountry.value) {
         tempCountries = tempCountries.filter((country) => {
             return country.name.common.includes(searchCountry.value);
+        });
+    }
+
+    if (regionCountries.value != "" && regionCountries.value) {
+        tempCountries = tempCountries.filter((country) => {
+            return country.region === regionCountries.value;
         });
     }
 

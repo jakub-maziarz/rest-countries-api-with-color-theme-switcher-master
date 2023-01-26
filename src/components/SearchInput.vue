@@ -12,9 +12,15 @@
             placeholder="Search for a country..."
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)"
         />
     </div>
 </template>
+<script setup>
+defineProps(["modelValue"]);
+defineEmits(["update:modelValue"]);
+</script>
 
 <style>
 .input-group {

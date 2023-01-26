@@ -2,13 +2,16 @@
     <div class="container-xxl px-4 px-xxl-0 py-4">
         <div class="row mb-5">
             <div class="col-12 d-flex justify-content-between pt-3">
-                <SearchInput></SearchInput>
+                <SearchInput
+                    :modelValue="searchCountry"
+                    @update:modelValue="(country) => (searchCountry = country)"
+                ></SearchInput>
                 <SelectDropdown></SelectDropdown>
             </div>
         </div>
         <div class="row gx-5 gy-5">
             <CountryCard
-                v-for="country in countries"
+                v-for="country in countriesFiltered"
                 :country="country"
                 :country-short-info="{
                     population: country.population,
@@ -25,7 +28,7 @@
 import SelectDropdown from "../components/SelectDropdown.vue";
 import SearchInput from "../components/SearchInput.vue";
 import CountryCard from "../components/CountryCard.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 
 const countries = ref([]);
 
@@ -34,6 +37,19 @@ onMounted(async () => {
     const data = await res.json();
     countries.value = data;
     console.log(countries.value);
+});
+
+const searchCountry = ref("");
+const countriesFiltered = computed(() => {
+    let tempCountries = countries.value;
+
+    if (searchCountry.value != "" && searchCountry.value) {
+        tempCountries = tempCountries.filter((country) => {
+            return country.name.common.includes(searchCountry.value);
+        });
+    }
+
+    return tempCountries;
 });
 </script>
 

@@ -11,41 +11,53 @@
                 ></SelectDropdown>
             </div>
         </div>
-        <div class="row gx-5 gy-5">
-            <CountryCard
-                v-for="country in countriesFiltered"
-                :country="country"
-                :country-short-info="{
-                    population: country.population,
-                    region: country.region,
-                    capital: country.capital,
-                }"
-                :key="country.name.common"
-            ></CountryCard>
-        </div>
+        <LazyList
+            :data="countriesFiltered"
+            :itemsPerRender="32"
+            containerClasses="row gx-5 gy-5"
+            defaultLoadingColor="#222"
+        >
+            <template v-slot="{ item }">
+                <router-link
+                    class="col-3"
+                    :to="{
+                        name: 'country',
+                        params: { name: item.name.common },
+                    }"
+                >
+                    <CountryCard
+                        :country="item"
+                        :country-short-info="{
+                            population: item.population,
+                            region: item.region,
+                            capital: item.capital,
+                        }"
+                    ></CountryCard>
+                </router-link>
+            </template>
+        </LazyList>
     </div>
 </template>
 
 <script setup>
+import LazyList from "lazy-load-list/vue";
 import SelectDropdown from "../components/SelectDropdown.vue";
 import SearchInput from "../components/SearchInput.vue";
 import CountryCard from "../components/CountryCard.vue";
 import { ref, onMounted, computed } from "vue";
+import { useStore } from "vuex";
 
-const countries = ref([]);
+const store = useStore();
 
-onMounted(async () => {
-    const res = await fetch("https://restcountries.com/v3.1/all");
-    const data = await res.json();
-    countries.value = data;
-    console.log(countries.value);
+onMounted(() => {
+    store.dispatch("fetchCountries");
 });
 
 const searchCountry = ref("");
 const regionCountries = ref("");
 
 const countriesFiltered = computed(() => {
-    let tempCountries = countries.value;
+    let tempCountries = store.getters.getCountries;
 
     if (searchCountry.value != "" && searchCountry.value) {
         tempCountries = tempCountries.filter((country) => {
@@ -53,7 +65,11 @@ const countriesFiltered = computed(() => {
         });
     }
 
-    if (regionCountries.value != "" && regionCountries.value) {
+    if (
+        regionCountries.value != "" &&
+        regionCountries.value &&
+        regionCountries.value != "All"
+    ) {
         tempCountries = tempCountries.filter((country) => {
             return country.region === regionCountries.value;
         });

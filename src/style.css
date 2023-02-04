@@ -1,9 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
 :root {
     --elements-color: hsl(0, 0%, 100%);
+    /* --elements-color: red; */
     --bg-color: hsl(0, 0%, 98%);
+    /* --bg-color: red; */
     --text-color: hsl(200, 15%, 8%);
+    /* --text-color: red; */
     --input-color: hsl(0, 0%, 52%);
+    --text-font: "Nunito Sans", sans-serif;
+}
+
+:root.dark {
+    --elements-color: hsl(209, 23%, 22%);
+    --bg-color: hsl(207, 26%, 17%);
+    --text-color: hsl(0, 0%, 100%);
+    --input-color: hsl(0, 0%, 100%);
 }
 
 html {
@@ -60,4 +71,12 @@ body {
 ::-ms-input-placeholder {
     /* Microsoft Edge */
     color: var(--input-color) !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.fs-7 {
+    font-size: 0.9rem;
 }

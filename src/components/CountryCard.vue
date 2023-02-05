@@ -1,5 +1,5 @@
 <template>
-    <div class="card w-100 h-100 shadow-blur">
+    <div class="card w-100 h-100 shadow-blur mx-auto">
         <img
             :src="country.flags.png"
             class="card-img-top"
@@ -31,6 +31,7 @@ const props = defineProps(["country", "countryShortInfo"]);
 .card {
     border: none;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .card-img-top {
@@ -41,5 +42,11 @@ const props = defineProps(["country", "countryShortInfo"]);
     color: var(--text-color);
     font-family: var(--text-font);
     background-color: var(--elements-color);
+}
+
+@media only screen and (max-width: 1200px) {
+    .card {
+        max-width: 285px;
+    }
 }
 </style>

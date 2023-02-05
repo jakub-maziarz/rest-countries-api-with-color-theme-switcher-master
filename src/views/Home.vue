@@ -1,7 +1,9 @@
 <template>
-    <div class="container-xxl px-4 px-xxl-0 py-4">
+    <div class="container-xxl px-3 px-sm-4 px-xxl-0 py-4">
         <div class="row mb-5">
-            <div class="col-12 d-flex justify-content-between pt-3">
+            <div
+                class="col-12 d-flex flex-column flex-md-row justify-content-between pt-3"
+            >
                 <SearchInput
                     :modelValue="searchCountry"
                     @update:modelValue="(country) => (searchCountry = country)"
@@ -14,12 +16,12 @@
         <LazyList
             :data="countriesFiltered"
             :itemsPerRender="32"
-            containerClasses="row gx-5 gy-5"
+            containerClasses="row gx-4 gx-xl-5 gy-5"
             defaultLoadingColor="#222"
         >
             <template v-slot="{ item }">
                 <router-link
-                    class="col-3"
+                    class="col-12 col-sm-6 col-lg-4 col-xl-3"
                     :to="{
                         name: 'country',
                         params: { name: item.name.common },

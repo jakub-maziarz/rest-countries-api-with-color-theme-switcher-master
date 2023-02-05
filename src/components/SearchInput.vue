@@ -1,5 +1,5 @@
 <template>
-    <div class="input-group rounded-1 shadow-blur">
+    <div class="input-group rounded-1 shadow-blur mb-4 mb-md-0">
         <span class="input-group-text ps-4 fs-7" id="inputGroup-sizing-default"
             ><font-awesome-icon icon="fa-solid fa-magnifying-glass" size="lg"
         /></span>

@@ -2,7 +2,9 @@
     <div v-if="country" class="container-xxl px-4 px-xxl-0 py-4">
         <GoBack></GoBack>
         <div class="row mt-5 country">
-            <div class="col-6 country__flag">
+            <div
+                class="col-12 col-lg-6 mb-3 mb-lg-0 d-flex justify-content-center country__flag"
+            >
                 <img
                     :src="country.flags.svg"
                     :alt="country.name.common"
@@ -10,20 +12,22 @@
                 />
             </div>
             <div
-                class="col-6 d-flex flex-column justify-content-center py-4 country__desc"
+                class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center py-4 country__desc"
             >
-                <h2 class="fw-semibold country__header">
+                <h2 class="fw-bold w-100 country__header">
                     {{ country.name.common }}
                 </h2>
-                <div class="row">
-                    <div class="col-6 d-flex flex-column country__geo-info">
+                <div class="row w-100 mb-3">
+                    <div
+                        class="col-12 col-lg-6 d-flex flex-column p-0 country__geo-info"
+                    >
                         <div v-for="(value, key) in countryGeoInfo" :key="key">
                             <span class="fw-semibold">{{ key }}: </span>
                             <span>{{ value }}</span>
                         </div>
                     </div>
                     <div
-                        class="col-6 d-flex flex-column country__additional-info"
+                        class="col-12 col-lg-6 d-flex flex-column p-0 country__additional-info"
                     >
                         <div
                             v-for="(value, key) in countryAdditionalInfo"
@@ -35,7 +39,7 @@
                     </div>
                 </div>
                 <div
-                    class="d-flex flex-wrap align-items-center fw-semibold country__border-countries"
+                    class="d-flex flex-wrap align-items-center fw-semibold w-100 country__border-countries"
                 >
                     <span>Border Countries: </span>
                     <router-link
@@ -71,6 +75,7 @@ onBeforeMount(async () => {
     if (res.ok) {
         const data = await res.json();
         country.value = data[0];
+        console.log(country.value);
         if (country.value.hasOwnProperty("borders")) {
             const borders = country.value.borders;
             borders.forEach(async (border) => {
@@ -115,7 +120,9 @@ const countryAdditionalInfo = computed(() => {
             languages.push(country.value.languages[key]);
         }
         return {
-            "Top Level Domain": country.value.tld,
+            "Top Level Domain": country.value.hasOwnProperty("tld")
+                ? country.value.tld
+                : "",
             Currencies: country.value.currencies[currencyKey].name,
             Languages: languages.join(", "),
         };
@@ -130,17 +137,14 @@ const borderCountriesData = computed(() => {
 });
 </script>
 <style scoped>
-.country__flag {
-    padding-right: 100px;
-}
-
 .country__flag img {
-    height: 400px;
+    height: 250px;
     object-fit: cover;
 }
 
-.country__desc {
-    row-gap: 30px;
+.country__desc,
+.country__desc .row {
+    row-gap: 20px;
 }
 
 .country__desc,
@@ -164,5 +168,45 @@ const borderCountriesData = computed(() => {
 
 .country__border-countries {
     gap: 10px;
+}
+
+@media only screen and (max-width: 991px) {
+    .country__flag img {
+        max-width: 400px;
+    }
+
+    .country__header {
+        max-width: 400px;
+    }
+
+    .country__desc .row,
+    .country__border-countries {
+        max-width: 400px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .country__flag {
+        padding-right: 50px;
+    }
+
+    .country__flag img {
+        height: 350px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .country__flag {
+        padding-right: 75px;
+    }
+    .country__flag img {
+        height: 400px;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .country__flag {
+        padding-right: 100px;
+    }
 }
 </style>

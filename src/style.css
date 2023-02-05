@@ -1,13 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
 :root {
     --elements-color: hsl(0, 0%, 100%);
-    /* --elements-color: red; */
     --bg-color: hsl(0, 0%, 98%);
-    /* --bg-color: red; */
     --text-color: hsl(200, 15%, 8%);
-    /* --text-color: red; */
     --input-color: hsl(0, 0%, 52%);
     --text-font: "Nunito Sans", sans-serif;
+    --shadow-color: rgba(133, 133, 133, 1);
 }
 
 :root.dark {
@@ -15,6 +13,7 @@
     --bg-color: hsl(207, 26%, 17%);
     --text-color: hsl(0, 0%, 100%);
     --input-color: hsl(0, 0%, 100%);
+    --shadow-color: rgba(85, 85, 85, 1);
 }
 
 html {
@@ -34,27 +33,11 @@ body {
     min-height: 100vh;
 }
 
-.fs-14 {
-    font-size: 14px;
-}
-
-.fs-16 {
-    font-size: 16px;
-}
-
-.text-font {
-    font-family: "Nunito Sans", sans-serif;
-}
-
 .shadow-blur {
-    -webkit-box-shadow: 0px 0px 3px 0px rgba(133, 133, 133, 1);
-    -moz-box-shadow: 0px 0px 3px 0px rgba(133, 133, 133, 1);
-    box-shadow: 0px 0px 3px 0px rgba(133, 133, 133, 1);
+    -webkit-box-shadow: 0px 0px 3px 0px var(--shadow-color);
+    -moz-box-shadow: 0px 0px 3px 0px var(--shadow-color);
+    box-shadow: 0px 0px 3px 0px var(--shadow-color);
     background-color: var(--elements-color);
-}
-
-.icon-color {
-    color: var(--input-color);
 }
 
 ::placeholder {

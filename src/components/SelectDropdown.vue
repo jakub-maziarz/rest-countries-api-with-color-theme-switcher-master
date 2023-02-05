@@ -1,7 +1,8 @@
 <template>
-    <div class="shadow-blur dropdown rounded-1" @click="dropdown = true">
+    <div class="shadow-blur dropdown rounded-1">
         <div
-            class="d-flex justify-content-between h-100 align-items-center fs-7 fw-semibold rounded-1 dropdown__selected"
+            class="d-flex justify-content-between h-100 align-items-center fs-7 fw-semibold rounded-1 py-3 py-md-0 dropdown__selected"
+            @click="dropdown = !dropdown"
         >
             <span class="dropdown__value">Filter by Region</span>
             <font-awesome-icon icon="fa-solid fa-chevron-down" />
@@ -9,13 +10,12 @@
         <div
             class="w-100 shadow-blur py-2 rounded-1 dropdown__list"
             v-if="dropdown"
-            @mouseleave="dropdown = false"
         >
             <div
                 class="fs-7 fw-semibold dropdown__item"
                 v-for="region in regions"
                 :key="region"
-                @click="$emit('filterByRegion', region)"
+                @click="clickRegion(region)"
             >
                 {{ region }}
             </div>
@@ -25,10 +25,15 @@
 
 <script setup>
 import { ref } from "vue";
-defineEmits(["filterByRegion"]);
+const emit = defineEmits(["filterByRegion"]);
 
 const dropdown = ref(false);
 const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
+
+function clickRegion(region) {
+    dropdown.value = false;
+    emit("filterByRegion", region);
+}
 </script>
 
 <style scoped>

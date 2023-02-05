@@ -14,7 +14,13 @@
 .btn:focus {
     outline: none !important;
     box-shadow: none;
-    border: none;
     background-color: var(--elements-color);
+}
+
+.btn:active {
+    outline: none !important;
+    box-shadow: none;
+    background-color: var(--elements-color);
+    color: var(--text-color);
 }
 </style>

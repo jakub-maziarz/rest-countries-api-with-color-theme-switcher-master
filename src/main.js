@@ -8,6 +8,7 @@ import {
     faArrowLeftLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { faMoon as faMoonRegular } from "@fortawesome/free-regular-svg-icons";
+import LazyList from "./components/LazyList.vue";
 import { createApp } from "vue";
 import router from "./router";
 import "./style.css";
@@ -26,6 +27,7 @@ createApp(App)
     .use(router)
     .use(store)
     .component("font-awesome-icon", FontAwesomeIcon)
+    .component("LazyList", LazyList)
     .mount("#app");
 
 import "bootstrap/dist/js/bootstrap.js";

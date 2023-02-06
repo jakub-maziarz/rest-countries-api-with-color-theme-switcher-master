@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import LazyList from "lazy-load-list/vue";
+// import LazyList from "lazy-load-list/vue";
 import SelectDropdown from "../components/SelectDropdown.vue";
 import SearchInput from "../components/SearchInput.vue";
 import CountryCard from "../components/CountryCard.vue";

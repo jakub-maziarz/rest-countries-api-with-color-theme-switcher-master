@@ -15,7 +15,7 @@
         "@fortawesome/vue-fontawesome": "^3.0.3",
         "@popperjs/core": "^2.11.6",
         "bootstrap": "^5.2.3",
-        "lazy-load-list": "file:src/dependencies/lazy-load-list",
+        "lazy-load-list": "file:dependencies/lazy-load-list",
         "vue": "^3.2.45",
         "vue-router": "^4.1.6",
         "vuex": "^4.0.2"

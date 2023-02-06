@@ -75,7 +75,6 @@ onBeforeMount(async () => {
     if (res.ok) {
         const data = await res.json();
         country.value = data[0];
-        console.log(country.value);
         if (country.value.hasOwnProperty("borders")) {
             const borders = country.value.borders;
             borders.forEach(async (border) => {

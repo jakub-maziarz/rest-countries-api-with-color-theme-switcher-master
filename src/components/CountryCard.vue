@@ -11,7 +11,7 @@
             </h3>
             <p
                 class="card-text mb-0 fs-6"
-                v-for="(value, key) in countryShortInfo"
+                v-for="(value, key) in countryShortInfoComputed"
                 :key="key"
             >
                 <span class="card-country-key fw-semibold"
@@ -25,7 +25,28 @@
     </div>
 </template>
 <script setup>
+import { computed } from "vue";
+
 const props = defineProps(["country", "countryShortInfo"]);
+
+const countryShortInfoComputed = computed(() => {
+    const infoTemp = props.countryShortInfo;
+    const populationReversed = infoTemp.population
+        .toString()
+        .split("")
+        .reverse();
+    let population = [];
+    for (let i = 1; i <= populationReversed.length; i++) {
+        population.push(populationReversed[i - 1]);
+        if (i % 3 === 0) {
+            population.push(",");
+        }
+    }
+    population = population.reverse().join("");
+    infoTemp.population = population;
+
+    return infoTemp;
+});
 </script>
 <style>
 .card {

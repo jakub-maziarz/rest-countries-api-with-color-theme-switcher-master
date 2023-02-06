@@ -98,9 +98,21 @@ onBeforeMount(async () => {
 const countryGeoInfo = computed(() => {
     if (country.value) {
         const nativeNameKey = Object.keys(country.value.name.nativeName)[0];
+        const populationReversed = country.value.population
+            .toString()
+            .split("")
+            .reverse();
+        let population = [];
+        for (let i = 1; i <= populationReversed.length; i++) {
+            population.push(populationReversed[i - 1]);
+            if (i % 3 === 0) {
+                population.push(",");
+            }
+        }
+        population = population.reverse().join("");
         return {
             "Native Name": country.value.name.nativeName[nativeNameKey].common,
-            Population: country.value.population,
+            Population: population,
             Region: country.value.region,
             "Sub Region": country.value.subregion,
             Capital:
